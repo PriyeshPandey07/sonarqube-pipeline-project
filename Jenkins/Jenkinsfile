@@ -24,9 +24,9 @@ pipeline {
             steps {
                 dir('src/frontend') {
                     withSonarQubeEnv('sonar-server') {
-                        sh ''' $SCANNER_HOME/bin/sonar-scanner \
+                        sh '''$SCANNER_HOME/bin/sonar-scanner \
                         -Dsonar.projectName=sonar-jenkins-project \
-                        -Dsonar.projectKey=sonar-jenkins-project '''
+                        -Dsonar.projectKey=sonar-jenkins-project'''
                     }
                 }
             }

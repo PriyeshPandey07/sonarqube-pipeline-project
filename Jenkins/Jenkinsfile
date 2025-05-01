@@ -17,13 +17,13 @@ pipeline {
         }
         stage('Checkout from Git') {
             steps {
-                git credentialsId:'git' ,url:'https://github.com/PriyeshPandey07/sonarqube-pipeline-project.git',branch:'jenkinssonar'
+                git credentialsId:'git-priyesh' ,url:'https://github.com/PriyeshPandey07/sonarqube-pipeline-project.git',branch:'jenkinssonar'
             }
         }
         stage('Sonarqube Analysis') {
             steps {
                 dir('src/frontend') {
-                    withSonarQubeEnv('sonar-server') {
+                    withSonarQubeEnv('sonar-scanner') {
                         sh ''' $SCANNER_HOME/bin/sonar-scanner \
                         -Dsonar.projectName=Jenkins-sonar-project \
                         -Dsonar.projectKey=Jenkins-sonar-project '''
@@ -65,7 +65,7 @@ pipeline {
         stage("ImagePush") {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'docker_user', passwordVariable: 'docker_pass')]) {
+                    withCredentials([usernamePassword(credentialsId: 'docker-priyesh', usernameVariable: 'docker_user', passwordVariable: 'docker_pass')]) {
                     sh "docker tag sonarci ${env.docker_user}/sonarci:${BUILD_NUMBER}"
                     sh "docker login -u ${env.docker_user} -p ${env.docker_pass}"
                     sh "docker push ${env.docker_user}/sonarci:${BUILD_NUMBER}"

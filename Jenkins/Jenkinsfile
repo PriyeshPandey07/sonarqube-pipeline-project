@@ -3,7 +3,7 @@ pipeline {
         label 'agent'
     }
     tools {
-        jdk 'jdk'
+        jdk 'JDK'
         nodejs 'nodejs'
     }
     environment  {

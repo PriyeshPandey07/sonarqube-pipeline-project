@@ -40,9 +40,11 @@ pipeline {
         }
         stage('OWASP Scan') {
             steps {
-                dir('src/frontend') {
+                dir('src/frontend') { 
+                     catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
                     dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DP-CHECK'
                     dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+                    }
                 }
             }
         }

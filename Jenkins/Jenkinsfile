@@ -42,7 +42,7 @@ pipeline {
             steps {
                 dir('src/frontend') {
                     sh 'npm install'
-                    dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DP-CHECK'
+                    dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit --disableAssembly', odcInstallation: 'DP-CHECK'
                     dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
                 }
             }
